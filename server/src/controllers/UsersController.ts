@@ -1,6 +1,6 @@
-import { Request, Response, Router } from 'express';
+import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
-import Users from "../entities/Users"
+import Users from "../entities/Users";
 
 // Création de la fonction getUsers qui récupère tous les utilisateurs.
 export async function getUsers (req: Request, res: Response){
