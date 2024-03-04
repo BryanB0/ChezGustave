@@ -20,4 +20,16 @@ app.use('/example', ExampleRouter);
 import AuthRoutes from './routes/AuthRoutes';
 app.use('/auth', AuthRoutes);
 
+import UsersRoutes from './routes/UsersRoutes';
+app.use('/users', UsersRoutes);
+
+import EquipementsRoutes from './routes/EquipementsRoutes';
+app.use('/equipements', EquipementsRoutes);
+
+import LogementsRoutes from './routes/LogementsRoutes';
+app.use('/logements', LogementsRoutes);
+
+import ReservationsRoutes from './routes/ReservationsRoutes';
+app.use('/reservations', ReservationsRoutes);
+
 export default app;
