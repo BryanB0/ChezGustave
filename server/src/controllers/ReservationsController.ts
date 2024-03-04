@@ -80,10 +80,21 @@ export async function updateReservation (req: Request, res: Response){
     if(!('user' in req.body)) return res.status(400).send('Missing "user" field');
     if(!('rating' in req.body)) return res.status(400).send('Missing "rating" field');
 
-    // Récupère un logement par sont id.
+
+    
+
+    // Récupère une réservation par sont id.
     const reservation = await Reservations.findOne({
         where: { id: Number(req.params.id) }
     });
+
+
+    for (const reservation of await Reservations.findBy({ logement: req.body.logement })) {
+        if(!((reservation.start_date >= req.body.start_date) && (reservation.start_date <= req.body.end_date)) 
+        || ((reservation.end_date >= req.body.start_date) && (reservation.end_date <= req.body.end_date))){
+            return res.status(400).send('Dates do not match !');
+        }   
+    }
     // Si le logement n'existe pas retourne le statut (404) Not found.
     if(!reservation) return res.sendStatus(404);
   
@@ -94,7 +105,8 @@ export async function updateReservation (req: Request, res: Response){
     reservation.logement = req.body.logement;
     reservation.user = req.body.user;
     reservation.rating = req.body.rating;
-  
+    
+    
     // Sauvegarde un logement.
     await reservation.save();
 
