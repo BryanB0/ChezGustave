@@ -1,5 +1,8 @@
 import { Request, Response } from 'express';
 import Reservations from "../entities/Reservations";
+import Logements from '../entities/Logements';
+import Users from '../entities/Users';
+
 
 export async function getReservations (req: Request, res: Response){
     res.send(await Reservations.find());
@@ -15,9 +18,26 @@ export async function createReservation (req: Request, res: Response){
     if(!('visite' in req.body)) return res.status(400).send('Missing "visite" field');
     if(!('logement' in req.body)) return res.status(400).send('Missing "logement" field');
     if(!('user' in req.body)) return res.status(400).send('Missing "user" field');
-    if(!('rating' in req.body)) return res.status(400).send('Missing "rating" field');
 
-    const { start_date, end_date, chef_cuisine, visite, logement, user, rating } = req.body;
+    const { start_date, end_date, chef_cuisine, visite, logement: logementId, user: userId } = req.body;
+
+    let user = await Users.findOne({ where: { id: userId }});
+    let logement = await Logements.findOne({ where: { id: logementId } });
+
+    if(!user){
+        return res.status(400).send('Invalid "User" ID');
+    }
+    if (!logement) {
+        return res.status(400).send('Invalid "logement" ID');
+    }
+
+    for (const reservation of await Reservations.findBy({ logement: logement })) {
+        if(!((reservation.start_date >= start_date) && (reservation.start_date <= end_date)) 
+        || ((reservation.end_date >= start_date) && (reservation.end_date <= end_date))){
+            return res.status(400).send('Dates do not match !');
+        }
+        
+    }
 
     const reservation = new Reservations();
 
@@ -27,7 +47,6 @@ export async function createReservation (req: Request, res: Response){
     reservation.visite = visite;
     reservation.logement = logement;
     reservation.user = user;
-    reservation.rating = rating;
 
     // Sauvegarde un logement.
     await reservation.save();
