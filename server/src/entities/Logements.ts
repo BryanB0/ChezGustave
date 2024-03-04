@@ -5,7 +5,7 @@ import Equipements from "./Equipements";
 export default class Logements extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number;
-    @Column()
+    @Column('simple-array')
     images: string[];
     @Column()
     secteur: string;

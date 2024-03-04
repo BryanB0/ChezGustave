@@ -1,0 +1,98 @@
+import { Request, Response } from 'express';
+import Reservations from "../entities/Reservations";
+
+export async function getReservations (req: Request, res: Response){
+    res.send(await Reservations.find());
+}
+
+export async function createReservation (req: Request, res: Response){
+    /* Si 'images' dans le body n'existe pas retourne le statut (400) Bad Request,
+       qui renvoie 'Missing "name" field' et même chose pour les autres composants:
+       secteur, description, tarif_bas, tarif_moyen ect.*/
+    if(!('start_date' in req.body)) return res.status(400).send('Missing "start_date" field');
+    if(!('end_date' in req.body)) return res.status(400).send('Missing "end_date" field');
+    if(!('chef_cuisine' in req.body)) return res.status(400).send('Missing "chef_cuisine" field');
+    if(!('visite' in req.body)) return res.status(400).send('Missing "visite" field');
+    if(!('logement' in req.body)) return res.status(400).send('Missing "logement" field');
+    if(!('user' in req.body)) return res.status(400).send('Missing "user" field');
+    if(!('rating' in req.body)) return res.status(400).send('Missing "rating" field');
+
+    const { start_date, end_date, chef_cuisine, visite, logement, user, rating } = req.body;
+
+    const reservation = new Reservations();
+
+    reservation.start_date = start_date;
+    reservation.end_date = end_date;
+    reservation.chef_cuisine = chef_cuisine;
+    reservation.visite = visite;
+    reservation.logement = logement;
+    reservation.user = user;
+    reservation.rating = rating;
+
+    // Sauvegarde un logement.
+    await reservation.save();
+
+    // Renvoie le statut (201) Created qui signifie qu'un logement a bien été créer.
+    res.sendStatus(201);
+}
+
+// Création de la fonction getLogement qui récupère un logement.
+export async function getReservation (req: Request, res: Response){
+    // Récupère un logement avec sont id (dans le body).
+    const reservation = await Reservations.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // Si le logement n'existe pas retourne le statut (404) Not found.
+    if(!reservation) return res.sendStatus(404);
+    // Renvoie le logement.
+    res.send(reservation);
+}
+
+// Création de la fonction updateLogement qui met à jour les détails d'un logement.
+export async function updateReservation (req: Request, res: Response){
+    /* Si 'images' dans le body n'existe pas retourne le statut (400) Bad Request,
+       qui renvoie 'Missing "name" field' et même chose pour les autres composants:
+       secteur, description, tarif_bas, tarif_moyen ect.*/
+    if(!('start_date' in req.body)) return res.status(400).send('Missing "start_date" field');
+    if(!('end_date' in req.body)) return res.status(400).send('Missing "end_date" field');
+    if(!('chef_cuisine' in req.body)) return res.status(400).send('Missing "chef_cuisine" field');
+    if(!('visite' in req.body)) return res.status(400).send('Missing "visite" field');
+    if(!('logement' in req.body)) return res.status(400).send('Missing "logement" field');
+    if(!('user' in req.body)) return res.status(400).send('Missing "user" field');
+    if(!('rating' in req.body)) return res.status(400).send('Missing "rating" field');
+
+    // Récupère un logement par sont id.
+    const reservation = await Reservations.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // Si le logement n'existe pas retourne le statut (404) Not found.
+    if(!reservation) return res.sendStatus(404);
+  
+    reservation.start_date = req.body.start_date;
+    reservation.end_date = req.body.end_date;
+    reservation.chef_cuisine = req.body.chef_cuisine;
+    reservation.visite = req.body.visite;
+    reservation.logement = req.body.logement;
+    reservation.user = req.body.user;
+    reservation.rating = req.body.rating;
+  
+    // Sauvegarde un logement.
+    await reservation.save();
+
+    // Renvoie le statut (200) OK qui comfirme que le changement a bien été effectuer.
+    res.sendStatus(200);
+}
+
+// Création de la fonction deleteLogement qui suprime un logement.
+export async function deleteReservation (req: Request, res: Response){
+    // Récupère un logement par sont id.
+    const reservation = await Reservations.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // Si le logement n'existe pas retourne le statut (404) Not found.
+    if(!reservation) return res.sendStatus(404);
+    // supprime le logement.
+    await reservation.remove();
+    // renvoie le statut (200) Ok qui comfirme la supression du logement.
+    res.sendStatus(200);
+}
