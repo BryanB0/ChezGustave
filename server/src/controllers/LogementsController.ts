@@ -118,3 +118,15 @@ export async function deleteLogement (req: Request, res: Response){
     // renvoie le statut (200) Ok qui comfirme la supression du logement.
     res.sendStatus(200);
 }
+
+export async function addAvis (req: Request, res: Response){
+    // Récupère un logement par sont id.
+    const logement = await Logements.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // Si le logement n'existe pas retourne le statut (404) Not found.
+    if(!logement) return res.sendStatus(404);
+    logement.avis = req.params.avis;
+    // renvoie le statut (200) Ok qui comfirme la supression du logement.
+    res.sendStatus(200);
+}
