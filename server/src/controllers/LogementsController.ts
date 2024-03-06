@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import Logements from "../entities/Logements";
+import Equipements from '../entities/Equipements';
 
 // Création de la fonction getLogements qui récupère tous les logements.
 export async function getLogements (req: Request, res: Response){
@@ -39,7 +40,41 @@ export async function createLogement (req: Request, res: Response){
     logement.salle_de_bain = salle_de_bain;
     logement.categorie = categorie;
     logement.type = type;
-    logement.equipements = equipements;
+
+    /**
+     * equipements: number[] // les equipements sont passer sous la forme d'une liste de nombre, les id des équipements a ajouter
+     * Ensuite faut boucler dessus avec un `for(const equipement of equipements)`
+     * Ensuite pour chaque `equipement` faut le récup avec le model Equipement
+     * Ensuite l'equipement récup faut le push dans logement.equipements
+     * 
+     * Voila voila, bisous et la bonne chance
+     */
+
+    // logement.equipements = equipements;
+    // equipements.forEach((equipement: string[]) => {
+    // }); 
+
+    /*let i =0;
+    logement.equipements.forEach(equipement =>{
+        equipements[i] = equipement;
+        i++;
+    })*/
+
+
+    //let number = equipements.map((equipement: Equipements)=> equipement.id);
+
+for (const equipementId of equipements.id) {
+    const equipement = await Equipements.findOne(equipementId);
+    
+    if (equipement) {
+        logement.equipements.push(equipement.name);
+    } else {
+        console.error(`Equipement with ID ${equipementId} not found`);
+    }
+}
+
+    
+
 
     // Sauvegarde un logement.
     await logement.save();
