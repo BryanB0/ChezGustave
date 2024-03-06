@@ -26,10 +26,8 @@ export default class Logements extends BaseEntity {
     @Column()
     categorie: string;
     @Column()
-    avis: string;
-    @Column()
     type: string;
     @ManyToMany(() => Equipements)
     @JoinTable()
-    equipements: string[];
+    equipements: Equipements[];
 }

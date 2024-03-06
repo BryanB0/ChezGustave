@@ -67,7 +67,7 @@ for (const equipementId of equipements.id) {
     const equipement = await Equipements.findOne(equipementId);
     
     if (equipement) {
-        logement.equipements.push(equipement.name);
+        logement.equipements.push(equipement);
     } else {
         console.error(`Equipement with ID ${equipementId} not found`);
     }
@@ -150,18 +150,6 @@ export async function deleteLogement (req: Request, res: Response){
     if(!logement) return res.sendStatus(404);
     // supprime le logement.
     await logement.remove();
-    // renvoie le statut (200) Ok qui comfirme la supression du logement.
-    res.sendStatus(200);
-}
-
-export async function addAvis (req: Request, res: Response){
-    // Récupère un logement par sont id.
-    const logement = await Logements.findOne({
-        where: { id: Number(req.params.id) }
-    });
-    // Si le logement n'existe pas retourne le statut (404) Not found.
-    if(!logement) return res.sendStatus(404);
-    logement.avis = req.params.avis;
     // renvoie le statut (200) Ok qui comfirme la supression du logement.
     res.sendStatus(200);
 }
