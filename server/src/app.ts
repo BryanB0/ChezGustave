@@ -32,4 +32,7 @@ app.use('/logements', LogementsRoutes);
 import ReservationsRoutes from './routes/ReservationsRoutes';
 app.use('/reservations', ReservationsRoutes);
 
+import RatingsRoutes from './routes/RatingsRoutes';
+app.use('/ratings', RatingsRoutes);
+
 export default app;
