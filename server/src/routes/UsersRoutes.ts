@@ -5,14 +5,14 @@ import { getUsers, createUser, getUser, updateUser, deleteUser } from "../contro
 const router = Router();
 
 // Définition de la route GET '/getUsers', qui appelle la fonction getUsers du contrôleur d'utilisateur.
-router.get('/getUsers', getUsers);
+router.get('/', getUsers);
 // Définition de la route POST '/createUser', qui appelle la fonction createUser du contrôleur d'utilisateur.
-router.post('/createUser', createUser);
+router.post('/', createUser);
 // Définition de la route GET '/getUser', qui appelle la fonction getUser du contrôleur d'utilisateur.
-router.get('/getUser', getUser);
+router.get('/:id', getUser);
 // Définition de la route PUT '/updateUser', qui appelle la fonction updateUser du contrôleur d'utilisateur.
-router.put('/updateUser', updateUser);
+router.put('/:id', updateUser);
 // Définition de la route DELETE '/deleteUser', qui appelle la fonction deleteteUser du contrôleur d'utilisateur.
-router.delete('/deleteUser', deleteUser);
+router.delete('/:id', deleteUser);
 
 export default router;
