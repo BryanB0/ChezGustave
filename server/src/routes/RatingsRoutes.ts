@@ -5,14 +5,14 @@ import { getRatings, createRating, getRating, updateRating, deleteRating } from 
 const router = Router();
 
 // Définition de la route GET '/getLogements', qui appelle la fonction getLogements du contrôleur logements.
-router.get('/getRatings', getRatings);
+router.get('/', getRatings);
 // Définition de la route POST '/createLogement', qui appelle la fonction createLogement du contrôleur logements.
-router.post('/createRating', createRating);
+router.post('/', createRating);
 // Définition de la route GET '/getLogement', qui appelle la fonction getLogement du contrôleur logements.
-router.get('/getRating', getRating);
+router.get('/:id', getRating);
 // Définition de la route PUT '/updateLogement', qui appelle la fonction updateLogement du contrôleur logements.
-router.put('/updateRating', updateRating);
+router.put('/:id', updateRating);
 // Définition de la route DELETE '/deleteLogement', qui appelle la fonction deleteLogement du contrôleur logements.
-router.delete('/deleteRating', deleteRating);
+router.delete('/:id', deleteRating);
 
 export default router;

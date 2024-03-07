@@ -5,14 +5,14 @@ import { getEquipements, createEquipement, getEquipement, updateEquipement, dele
 const router = Router();
 
 // Définition de la route GET '/getEquipements', qui appelle la fonction getEquipements du contrôleur des equiments.
-router.get('/getEquipements', getEquipements);
+router.get('/', getEquipements);
 // Définition de la route POST '/createEquipement', qui appelle la fonction createEquipement du contrôleur des equiments.
-router.post('/createEquipement', createEquipement);
+router.post('/', createEquipement);
 // Définition de la route GET '/getEquipement', qui appelle la fonction getEquipement du contrôleur des equiments.
-router.get('/getEquipement', getEquipement);
+router.get('/:id', getEquipement);
 // Définition de la route PUT '/updateEquipement', qui appelle la fonction updateEquipement du contrôleur des equiments.
-router.put('/updateEquipement', updateEquipement);
+router.put('/:id', updateEquipement);
 // Définition de la route DELETE '/deleteEquipement', qui appelle la fonction deleteEquipement du contrôleur des equiments.
-router.delete('/deleteEquipement', deleteEquipement);
+router.delete('/:id', deleteEquipement);
 
 export default router;
