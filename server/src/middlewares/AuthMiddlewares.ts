@@ -2,16 +2,16 @@ import { NextFunction, Request, Response } from "express";
 import { getUserByToken } from "../utils/AuthUtils";
 
 
-// export le middlewares asyncrone d'un utilisateur connecter.
+// Export the middlewares asyncron from aconnected user
 export async function userConnected(req: Request, res: Response, next: NextFunction) {
-    // si le token n'est pas trouver dans les cookies retourne le statut 401 Unauthorized.
+    // If the token is not found in the cookies return the status 401 Unauthorized
     const token = req.cookies.token;
     if (!token) return res.sendStatus(401);
-    // si l'utilisateur n'est pas trouver renvoie le statut 401 et si l'utilisateur est un admin renvoie le statut 401.
+    // If the user is not found return the status 401 and if the user is an admin return the status 401
     const user = await getUserByToken(token);
     if (!user) return res.sendStatus(401);
     if (user.is_admin) return res.sendStatus(401);
-    // permet de donner l'acces au routes qui utilise le middlewares.
+    // Allowed to give the access to roads that use the middlewares
     next();
 }
 

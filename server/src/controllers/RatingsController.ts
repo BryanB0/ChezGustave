@@ -9,9 +9,10 @@ export async function getRatings (req: Request, res: Response){
 }
 
 export async function createRating (req: Request, res: Response){
-    /* Si 'images' dans le body n'existe pas retourne le statut (400) Bad Request,
-       qui renvoie 'Missing "name" field' et même chose pour les autres composants:
-       secteur, description, tarif_bas, tarif_moyen ect.*/
+    /*If 'images' in the body doesn't exist return the status 400 Bad Request,
+    that return 'Missing "rated" field' and same thing for the others components :
+    text,logement,reservation, user
+    */
     if(!('rated' in req.body)) return res.status(400).send('Missing "rated" field');
     if(!('text' in req.body)) return res.status(400).send('Missing "text" field');
     if(!('logement' in req.body)) return res.status(400).send('Missing "logement" field');
@@ -19,11 +20,11 @@ export async function createRating (req: Request, res: Response){
     if(!('user' in req.body)) return res.status(400).send('Missing "user" field');
 
     const { rated, text, logement: userId, reservation: reservationId, user: logementId } = req.body;
-
+    // We get the logement, the reservation and the user
     let logement = await Logements.findOne({ where: { id: logementId } });
     let reservation = await Reservations.findOne({ where: { id: reservationId } });
     let user = await Users.findOne({ where: { id: userId }});
-
+    // If we can't get them we return an error
     if (!logement) {
         return res.status(400).send('Invalid "logement" ID');
     }
@@ -34,7 +35,7 @@ export async function createRating (req: Request, res: Response){
         return res.status(400).send('Invalid "User" ID');
     }
 
-
+    // We create the rating
     const rating = new Ratings();
 
     rating.rated = rated;
@@ -43,40 +44,41 @@ export async function createRating (req: Request, res: Response){
     rating.reservation = reservation;
     rating.user = user;
 
-    // Sauvegarde un logement.
+    // save a rating
     await rating.save();
 
-    // Renvoie le statut (201) Created qui signifie qu'un logement a bien été créer.
+    // Send the status 201 Created that means that the rating hasbeen corectly created.
     res.sendStatus(201);
 }
 
 export async function getRating (req: Request, res: Response){
-    // Récupère un logement avec sont id (dans le body).
+    // Get a rating with his id(in the body)
     const rating = await Ratings.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si le logement n'existe pas retourne le statut (404) Not found.
+    // If the rating doesn't exist return the status 404 Not found
     if(!rating) return res.sendStatus(404);
-    // Renvoie le logement.
+    // send the rating
     res.send(rating);
 }
 
 export async function updateRating (req: Request, res: Response){
-    /* Si 'images' dans le body n'existe pas retourne le statut (400) Bad Request,
-       qui renvoie 'Missing "name" field' et même chose pour les autres composants:
-       secteur, description, tarif_bas, tarif_moyen ect.*/
+    /*If 'images' in the body doesn't exist return the status 400 Bad Request,
+    that return 'Missing "rated" field' and same thing for the others components :
+    text,logement,reservation, user
+    */
     if(!('rated' in req.body)) return res.status(400).send('Missing "rated" field');
     if(!('text' in req.body)) return res.status(400).send('Missing "text" field');
     if(!('logement' in req.body)) return res.status(400).send('Missing "logement" field');
     if(!('reservation' in req.body)) return res.status(400).send('Missing "reservation" field');
     if(!('user' in req.body)) return res.status(400).send('Missing "user" field');
 
-    // Récupère une réservation par sont id.
+    // Get a rating with his id(in the body)
     const rating = await Ratings.findOne({
         where: { id: Number(req.params.id) }
     });
 
-    // Si le logement n'existe pas retourne le statut (404) Not found.
+    // If the rating doesn't exist return the status 404 Not found
     if(!rating) return res.sendStatus(404);
   
     rating.rated = req.body.rated;
@@ -86,22 +88,22 @@ export async function updateRating (req: Request, res: Response){
     rating.user = req.body.user;
     
     
-    // Sauvegarde un logement.
+    // Save a rating
     await rating.save();
 
-    // Renvoie le statut (200) OK qui comfirme que le changement a bien été effectuer.
+    // Return the status 200 Ok that confirms that the changement has been corectly done
     res.sendStatus(200);
 }
 
 export async function deleteRating (req: Request, res: Response){
-    // Récupère un logement par sont id.
+    // Get a rating with his id(in the body)
     const rating = await Ratings.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si le logement n'existe pas retourne le statut (404) Not found.
+    // If the rating doesn't exist return the status 404 Not found
     if(!rating) return res.sendStatus(404);
-    // supprime le logement.
+    // delete the rating
     await rating.remove();
-    // renvoie le statut (200) Ok qui comfirme la supression du logement.
+    // Return the status 200 Ok that confirms that the delete has been corectly done
     res.sendStatus(200);
 }

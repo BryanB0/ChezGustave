@@ -4,15 +4,15 @@ import { getLogements, createLogement, getLogement, updateLogement, deleteLogeme
 
 const router = Router();
 
-// Définition de la route GET '/getLogements', qui appelle la fonction getLogements du contrôleur logements.
+// Define the road GET '/getLogements', that call the function getLogements from the logements controller
 router.get('/getLogements', getLogements);
-// Définition de la route POST '/createLogement', qui appelle la fonction createLogement du contrôleur logements.
+// Define the road POST '/createLogement', that call the function createLogement from the logements controller
 router.post('/createLogement', createLogement);
-// Définition de la route GET '/getLogement', qui appelle la fonction getLogement du contrôleur logements.
+// Define the road GET '/getLogement', that call the function getLogement from the logements controller
 router.get('/getLogement', getLogement);
-// Définition de la route PUT '/updateLogement', qui appelle la fonction updateLogement du contrôleur logements.
+// Define the road PUT '/updateLogement', that call the function updateLogement from the logements controller
 router.put('/updateLogement', updateLogement);
-// Définition de la route DELETE '/deleteLogement', qui appelle la fonction deleteLogement du contrôleur logements.
+// Define the road DELETE '/deleteLogement', that call the function deleteLogement from the logements controller
 router.delete('/deleteLogement', deleteLogement);
 
 export default router;
