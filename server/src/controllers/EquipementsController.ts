@@ -1,14 +1,14 @@
 import { Request, Response } from 'express';
 import Equipements from "../entities/Equipements";
 
-// Création de la fonction getEquipements qui récupère tous les equipements.
+// Creation of the function getEquipements that get all the equipements
 export async function getEquipements (req: Request, res: Response){
     res.send(await Equipements.find());
 }
 
-// Création de la fonction createEquipement qui crée un equipement.
+//Creation ofthe function createEqipement that create an equipement
 export async function createEquipement (req: Request, res: Response){
-    // Si 'name' dans le body n'existe pas retourne le statut (400) Bad Request, qui renvoie 'Missing "name" field'.
+    //If 'name' in the body doesn't exist return the status 400 Bad Request that return 'Missing "name" field'
     if(!('name' in req.body)) return res.status(400).send('Missing "name" field');
 
     const { name } = req.body;
@@ -17,56 +17,56 @@ export async function createEquipement (req: Request, res: Response){
 
     equipement.name = name;
 
-    // Sauvegarde un equipement.
+    // Save an equipement
     await equipement.save();
 
-    // Renvoie le statut (201) Created qui signifie qu'un equipement a bien été créer.
+    // Return the status 201 Created qui signifie qu'un equipement has been created.
     res.sendStatus(201);
 }
 
-// Création de la fonction getEquipement qui récupère un equipement.
+// Creation of the function getEquipement that get an equipement
 export async function getEquipement (req: Request, res: Response){
-    // Récupère un equipement avec sont id (dans le body).
+    // Tak an equipement with his id (in the body)
     const equipement = await Equipements.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si l'equipement n'existe pas retourne le statut (404) Not found.
+    // If the equipement doesn't exist return status 404 Not found
     if(!equipement) return res.sendStatus(404);
-    // Renvoie l'equipement.
+    // Return the equipement.
     res.send(equipement);
 }
 
-// Création de la fonction updateEquipement qui met à jour les détails d'un equipement.
+// Creation of the function updateEquipement that update the details of an equipement
 export async function updateEquipement (req: Request, res: Response){
-    // Si 'name' dans le body n'existe pas retourne le statut (400) Bad Request, qui renvoie 'Missing "name" field'.
+    // If 'name' in the body doesn't exist return the status 400 Bad Request, that return 'Missing "name" field'
     if(!('name' in req.body)) return res.status(400).send('Missing "name" field');
 
-    // Récupère un equipement par sont id.
+    // Get an Equipement by his id.
     const equipement = await Equipements.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si l'equipement n'existe pas retourne le statut (404) Not found.
+    // If the equipement doesn't exist return the status 404 Not found
     if(!equipement) return res.sendStatus(404);
   
     equipement.name = req.body.name;
   
-    // Sauvegarde un equipement.
+    // Save an equipement
     await equipement.save();
 
-    // Renvoie le statut (200) OK qui comfirme que le changement a bien été effectuer.
+    // Return the status 200 OK that confirms that the changement has been correctly done.
     res.sendStatus(200);
 }
 
-// Création de la fonction deleteEquipement qui suprime un equipement.
+// Creation of the function deleteEquipement that delete an equipement
 export async function deleteEquipement (req: Request, res: Response){
-    // Récupère un equipement par sont id.
+    // Get an equipement by his id
     const equipement = await Equipements.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si l'equipement n'existe pas retourne le statut (404) Not found.
+    // If the equipement doesn't exist return the status 404 Not Found
     if(!equipement) return res.sendStatus(404);
-    // supprime l'equipement.
+    // delete the equipement
     await equipement.remove();
-    // renvoie le statut (200) Ok qui comfirme la supression de l'equipement'.
+    // Return the status 200 Ok qui confirme the deleting from the equipement.
     res.sendStatus(200);
 }

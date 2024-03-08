@@ -8,7 +8,7 @@ const app = express();
 app.get('/', (req, res) => {
     res.send('Hello world');
 });
-// Ajout des Middlewares
+// Add Middlewares
 app.use(cors());
 app.use(express.json());
 app.use(cookieParser());

@@ -2,16 +2,17 @@ import { Request, Response } from 'express';
 import Logements from "../entities/Logements";
 import Equipements from '../entities/Equipements';
 
-// Création de la fonction getLogements qui récupère tous les logements.
+// Creation of the function getLogements that get all the logements
 export async function getLogements (req: Request, res: Response){
     res.send(await Logements.find());
 }
 
-// Création de la fonction createLogement qui crée un logement.
+// Creation of the function createLogement that create a logement
 export async function createLogement (req: Request, res: Response){
-    /* Si 'images' dans le body n'existe pas retourne le statut (400) Bad Request,
-       qui renvoie 'Missing "name" field' et même chose pour les autres composants:
-       secteur, description, tarif_bas, tarif_moyen ect.*/
+    /*If 'images' in the body doesn't exist return the status 400 Bad Request,
+    that return 'Missing "name" field' and same thing for the others components :
+    secteur,description,tarif_bas, tarif_moyen etc...
+    */
     if(!('images' in req.body)) return res.status(400).send('Missing "images" field');
     if(!('secteur' in req.body)) return res.status(400).send('Missing "secteur" field');
     if(!('description' in req.body)) return res.status(400).send('Missing "description" field');
@@ -41,65 +42,45 @@ export async function createLogement (req: Request, res: Response){
     logement.categorie = categorie;
     logement.type = type;
 
-    /**
-     * equipements: number[] // les equipements sont passer sous la forme d'une liste de nombre, les id des équipements a ajouter
-     * Ensuite faut boucler dessus avec un `for(const equipement of equipements)`
-     * Ensuite pour chaque `equipement` faut le récup avec le model Equipement
-     * Ensuite l'equipement récup faut le push dans logement.equipements
-     * 
-     * Voila voila, bisous et la bonne chance
-     */
 
-    // logement.equipements = equipements;
-    // equipements.forEach((equipement: string[]) => {
-    // }); 
+    // We go in the table equipements where we get the id of each equipement and we stock in equipementId
+    for (const equipementId of equipements.id) {
+        // We search the equipement with the id
+        const equipement = await Equipements.findOne(equipementId);
+        // If equipement is not null we push his name in the table equipements
+        if (equipement) {
+            logement.equipements.push(equipement);
+        } else {
+            // Else we return an error
+            console.error(`Equipement with ID ${equipementId} not found`);
+        }
 
-    /*let i =0;
-    logement.equipements.forEach(equipement =>{
-        equipements[i] = equipement;
-        i++;
-    })*/
-
-
-    //let number = equipements.map((equipement: Equipements)=> equipement.id);
-
-for (const equipementId of equipements.id) {
-    const equipement = await Equipements.findOne(equipementId);
-    
-    if (equipement) {
-        logement.equipements.push(equipement);
-    } else {
-        console.error(`Equipement with ID ${equipementId} not found`);
     }
-}
-
-    
-
-
-    // Sauvegarde un logement.
+    // Save a logement
     await logement.save();
 
-    // Renvoie le statut (201) Created qui signifie qu'un logement a bien été créer.
+    // Retuen the status 201 Created that means a logement has been created
     res.sendStatus(201);
 }
 
-// Création de la fonction getLogement qui récupère un logement.
+// Creation of the function getLogement that get a logement
 export async function getLogement (req: Request, res: Response){
-    // Récupère un logement avec sont id (dans le body).
+    // Get back a logement with his id (in the body)
     const logement = await Logements.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si le logement n'existe pas retourne le statut (404) Not found.
+    // If the logement doesn't exist return the status 404 Not found
     if(!logement) return res.sendStatus(404);
-    // Renvoie le logement.
+    // Send the logement
     res.send(logement);
 }
 
-// Création de la fonction updateLogement qui met à jour les détails d'un logement.
+// Creation of the function updateLogement that update the details of a logement
 export async function updateLogement (req: Request, res: Response){
-    /* Si 'images' dans le body n'existe pas retourne le statut (400) Bad Request,
-       qui renvoie 'Missing "name" field' et même chose pour les autres composants:
-       secteur, description, tarif_bas, tarif_moyen ect.*/
+    /*If 'images' in the body doesn't exist return the status 400 Bad Request,
+    that return 'Missing "name" field' and same thing for the others components :
+    secteur,description,tarif_bas, tarif_moyen etc...
+    */
        if(!('images' in req.body)) return res.status(400).send('Missing "images" field');
        if(!('secteur' in req.body)) return res.status(400).send('Missing "secteur" field');
        if(!('description' in req.body)) return res.status(400).send('Missing "description" field');
@@ -113,11 +94,11 @@ export async function updateLogement (req: Request, res: Response){
        if(!('type' in req.body)) return res.status(400).send('Missing "type" field');
        if(!('equipements' in req.body)) return res.status(400).send('Missing "equipements" field');
 
-    // Récupère un logement par sont id.
+    // Get a logement by his id.
     const logement = await Logements.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si le logement n'existe pas retourne le statut (404) Not found.
+    // If the logement doesn't exist return the status 404 Not found
     if(!logement) return res.sendStatus(404);
   
     logement.images = req.body.images;
@@ -133,23 +114,24 @@ export async function updateLogement (req: Request, res: Response){
     logement.type = req.body.type;
     logement. equipements = req.body.equipements;
   
-    // Sauvegarde un logement.
+    // Save a logement
     await logement.save();
 
-    // Renvoie le statut (200) OK qui comfirme que le changement a bien été effectuer.
+    // Return the status 200 Ok that confirms that the changement has been corectly done.
     res.sendStatus(200);
 }
 
-// Création de la fonction deleteLogement qui suprime un logement.
+// Creation of the function deleteLogement that delete a logement
 export async function deleteLogement (req: Request, res: Response){
-    // Récupère un logement par sont id.
+    // Get a logement by his id
     const logement = await Logements.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si le logement n'existe pas retourne le statut (404) Not found.
+    // If the logement doesn't exist return the status 404 Not found
     if(!logement) return res.sendStatus(404);
-    // supprime le logement.
+    // delete the logement
     await logement.remove();
-    // renvoie le statut (200) Ok qui comfirme la supression du logement.
+    // Return the status 200 Ok that confirms the deleting of the logement
     res.sendStatus(200);
+
 }

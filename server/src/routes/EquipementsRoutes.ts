@@ -3,16 +3,16 @@ import { getEquipements, createEquipement, getEquipement, updateEquipement, dele
 
 
 const router = Router();
-
-// Définition de la route GET '/getEquipements', qui appelle la fonction getEquipements du contrôleur des equiments.
+// Define the road GET '/', that call the function getEquipements from the equipements controller
 router.get('/', getEquipements);
-// Définition de la route POST '/createEquipement', qui appelle la fonction createEquipement du contrôleur des equiments.
+// Define the road POST '/', that call the function createEquipement from the equipements controller
 router.post('/', createEquipement);
-// Définition de la route GET '/getEquipement', qui appelle la fonction getEquipement du contrôleur des equiments.
+// Define the road GET '/:id', that call the function getEquipement from the equipements controller
 router.get('/:id', getEquipement);
-// Définition de la route PUT '/updateEquipement', qui appelle la fonction updateEquipement du contrôleur des equiments.
+// Define the road PUT '/:id', that call the function updateEquipement from the equipements controller
 router.put('/:id', updateEquipement);
-// Définition de la route DELETE '/deleteEquipement', qui appelle la fonction deleteEquipement du contrôleur des equiments.
+// Define the road DELETE '/:id', that call the function deleteEquipement from the equipements controller
 router.delete('/:id', deleteEquipement);
+
 
 export default router;

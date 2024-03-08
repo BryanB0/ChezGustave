@@ -4,15 +4,17 @@ import { getRatings, createRating, getRating, updateRating, deleteRating } from 
 
 const router = Router();
 
-// Définition de la route GET '/getLogements', qui appelle la fonction getLogements du contrôleur logements.
+
+// Define the road GET '/', that call the function getRatings from the ratings controller
 router.get('/', getRatings);
-// Définition de la route POST '/createLogement', qui appelle la fonction createLogement du contrôleur logements.
+// Define the road POST '/', that call the function createRating from the ratings controller
 router.post('/', createRating);
-// Définition de la route GET '/getLogement', qui appelle la fonction getLogement du contrôleur logements.
+// Define the road GET '/:id', that call the function getRating from the ratings controller;
 router.get('/:id', getRating);
-// Définition de la route PUT '/updateLogement', qui appelle la fonction updateLogement du contrôleur logements.
+// Define the road PUT '/:id', that call the function updateRating from the ratings controller
 router.put('/:id', updateRating);
-// Définition de la route DELETE '/deleteLogement', qui appelle la fonction deleteLogement du contrôleur logements.
+// Define the road DELETE '/:id', that call the function deleteRating from the ratings controller
 router.delete('/:id', deleteRating);
+
 
 export default router;

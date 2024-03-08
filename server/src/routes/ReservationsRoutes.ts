@@ -4,15 +4,16 @@ import { getReservations, createReservation, getReservation, updateReservation, 
 
 const router = Router();
 
-// Définition de la route GET '/getLogements', qui appelle la fonction getLogements du contrôleur logements.
+// Define the road GET '/', that call the function getReservations from the reservations controller
 router.get('/', getReservations);
-// Définition de la route POST '/createLogement', qui appelle la fonction createLogement du contrôleur logements.
+// Define the road POST '/', that call the function createReservation from the reservations controller
 router.post('/', createReservation);
-// Définition de la route GET '/getLogement', qui appelle la fonction getLogement du contrôleur logements.
+// Define the road GET '/:id', that call the function getReservation from the reservations controller
 router.get('/:id', getReservation);
-// Définition de la route PUT '/updateLogement', qui appelle la fonction updateLogement du contrôleur logements.
+// Define the road PUT '/:id', that call the function updateReservation from the reservations controller
 router.put('/:id', updateReservation);
-// Définition de la route DELETE '/deleteLogement', qui appelle la fonction deleteLogement du contrôleur logements.
+// Define the road DELETE '/:id', that call the function deleteReservation from the reservations controller
 router.delete('/:id', deleteReservation);
+
 
 export default router;

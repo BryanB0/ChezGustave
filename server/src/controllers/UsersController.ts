@@ -2,15 +2,18 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import Users from "../entities/Users";
 
-// Création de la fonction getUsers qui récupère tous les utilisateurs.
+//Creation of the function getUsers that get all the users
 export async function getUsers (req: Request, res: Response){
     res.send(await Users.find());
 }
 
-// Création de la fonction createUser qui crée un utilisateur.
+// Creation of the fuction ceeateUser thatcreate an user
 export async function createUser (req: Request, res: Response){
-    /* Si 'name' dans le body n'existe pas retourne le statut (400) Bad Request,
-       qui renvoie 'Missing "name" field' et même chose pour les autres composants (name, tel et password).*/
+    /*If 'name' in the body doesn't exist return the status 400 Bad Request,
+    that return 'Missing "name" field' and same thing for the others components :
+    email,tel,password
+    */
+    
     if(!('email' in req.body)) return res.status(400).send('Missing "email" field');
     if(!('name' in req.body)) return res.status(400).send('Missing "name" field');
     if(!('tel' in req.body)) return res.status(400).send('Missing "tel" field');
@@ -28,39 +31,41 @@ export async function createUser (req: Request, res: Response){
 
     user.is_admin = false;
 
-    // Sauvegarde un utilisateur.
+    // Save an user
     await user.save();
 
-    // Renvoie le statut (201) Created qui signifie qu'un utilisateur a bien été créer.
+    // Send the status 201 Created that means that an user has been correctly created
     res.sendStatus(201);
 }
 
-// Création de la fonction getUser qui récupère un utilisateur.
+// Creation of the function getUser that get an user
 export async function getUser (req: Request, res: Response){
-    // Récupère un utilisateur avec sont id (dans le body).
+    // Get an user with his id in the body
     const user = await Users.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si l'utilisateur n'existe pas retourne le statut (404) Not found.
+    // If the user doesn't exist return the status 404 Not found
     if(!user) return res.sendStatus(404);
-    // Renvoie l'utilisateur.
+    // Send the user
     res.send(user);
 }
 
-// Création de la fonction updateUser qui met à jour les détails d'un utilisateur.
+//Creation of the function updateUser that update the details of an user
 export async function updateUser (req: Request, res: Response){
-    /* Si 'name' dans le body n'existe pas retourne le statut (400) Bad Request,
-       qui renvoie 'Missing "name" field' et même chose pour les autres composants (name, tel et password).*/
+    /*If 'name' in the body doesn't exist return the status 400 Bad Request,
+    that return 'Missing "name" field' and same thing for the others components :
+    email,tel,password
+    */
     if(!('email' in req.body)) return res.status(400).send('Missing "email" field');
     if(!('name' in req.body)) return res.status(400).send('Missing "name" field');
     if(!('tel' in req.body)) return res.status(400).send('Missing "tel" field');
     if(!('password' in req.body)) return res.status(400).send('Missing "password" field');
 
-    // Récupère un utilisateur par sont id.
+    // get an user with his id
     const user = await Users.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si l'utilisateur n'existe pas retourne le statut (404) Not found.
+    // If the user doesn't exist send the status 404 Not found
     if(!user) return res.sendStatus(404);
   
     user.email = req.body.email;
@@ -69,23 +74,23 @@ export async function updateUser (req: Request, res: Response){
     user.password = req.body.password;
     user.is_admin = req.body.is_admin;
   
-    // Sauvegarde un utilisateur.
+    // Save an user
     await user.save();
 
-    // Renvoie le statut (200) OK qui comfirme que le changement a bien été effectuer.
+    // Send the status 200 Ok that confirms that the update has been correctly done
     res.sendStatus(200);
 }
 
-// Création de la fonction deleteUser qui suprime un utilisateur.
+// Creation of the function deleteUser that delete an user
 export async function deleteUser (req: Request, res: Response){
-    // Récupère un utilisateur par sont id.
+    // get an user by his id
     const user = await Users.findOne({
         where: { id: Number(req.params.id) }
     });
-    // Si l'utilisateur n'existe pas retourne le statut (404) Not found.
+    // If the user doesn't exist return the status 404 Not found
     if(!user) return res.sendStatus(404);
-    // supprime l'utilisateur.
+    // delete the user
     await user.remove();
-    // renvoie le statut (200) Ok qui comfirme la supression de l'utilisateur'.
+    // Send the status 200 Ok that confirmsthe delete of the user
     res.sendStatus(200);
 }
