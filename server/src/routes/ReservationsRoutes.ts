@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getReservations, createReservation, getReservation, updateReservation, deleteReservation } from "../controllers/ReservationsController";
+import { getReservations, createReservation, getReservation, updateReservation, deleteReservation, getRatingsFromReservation } from "../controllers/ReservationsController";
 
 
 const router = Router();
@@ -14,6 +14,7 @@ router.get('/:id', getReservation);
 router.put('/:id', updateReservation);
 // Define the road DELETE '/:id', that call the function deleteReservation from the reservations controller
 router.delete('/:id', deleteReservation);
-
+// Define the road GET '/:id/ratings', that call the function getRatingsFromReservation from the reservations controller
+router.get('/:id/ratings', getRatingsFromReservation);
 
 export default router;

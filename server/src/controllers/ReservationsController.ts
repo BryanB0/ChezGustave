@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Reservations from "../entities/Reservations";
 import Logements from '../entities/Logements';
 import Users from '../entities/Users';
+import Ratings from '../entities/Ratings';
 
 
 export async function getReservations (req: Request, res: Response){
@@ -131,4 +132,22 @@ export async function deleteReservation (req: Request, res: Response){
     await reservation.remove();
     // Send the status 200 Ok that confirms the delete of the logement
     res.sendStatus(200);
+}
+
+// Creation of the function GetRatingsFromReservation that get Ratings for a specefic reservation
+export async function getRatingsFromReservation (req: Request, res: Response){
+    // Get a reservatio,n by his id
+    const reservation = await Reservations.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // If the reservation doesn't exist return the status 404 Not found
+    if (!reservation) {
+        return res.status(404).send("Not found.");
+    }
+    // Get the ratings from reservation
+    const ratings = await Ratings.find({
+        where: { reservation: reservation }
+    });
+    // send reservations in anwer
+    res.send(ratings);
 }

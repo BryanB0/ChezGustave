@@ -1,6 +1,8 @@
 import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import Users from "../entities/Users";
+import Reservations from '../entities/Reservations';
+
 
 //Creation of the function getUsers that get all the users
 export async function getUsers (req: Request, res: Response){
@@ -93,4 +95,22 @@ export async function deleteUser (req: Request, res: Response){
     await user.remove();
     // Send the status 200 Ok that confirmsthe delete of the user
     res.sendStatus(200);
+}
+
+// Creation of the function GetReservationsFromUser that get the details of Reservations for a specefic user
+export async function getReservationsFromUser (req: Request, res: Response){
+    // Get a user by his id
+    const user = await Users.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // If the user doesn't exist return the status 404 Not found
+    if (!user) {
+        return res.status(404).send("Not found.");
+    }
+    // Get the resevations from user
+    const reservations = await Reservations.find({
+        where: { user: user }
+    });
+    // send reservations in anwer
+    res.send(reservations);
 }
