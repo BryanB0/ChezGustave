@@ -14,4 +14,5 @@ router.put('/:id', updateEquipement);
 // Define the road DELETE '/:id', that call the function deleteEquipement from the equipements controller
 router.delete('/:id', deleteEquipement);
 
+
 export default router;

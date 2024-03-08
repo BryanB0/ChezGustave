@@ -4,6 +4,7 @@ import { getUsers, createUser, getUser, updateUser, deleteUser } from "../contro
 
 const router = Router();
 
+
 // Define the road GET '/', that call the function getUsers from the users controller
 router.get('/', getUsers);
 // Define the road POST '/', that call the function createUser from the reservations controller
@@ -14,5 +15,6 @@ router.get('/:id', getUser);
 router.put('/:id', updateUser);
 // Define the road DELETE '/:id', that call the function deleteUser from the users controller
 router.delete('/:id', deleteUser);
+
 
 export default router;

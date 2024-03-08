@@ -3,6 +3,7 @@ import { getReservations, createReservation, getReservation, updateReservation, 
 
 
 const router = Router();
+
 // Define the road GET '/', that call the function getReservations from the reservations controller
 router.get('/', getReservations);
 // Define the road POST '/', that call the function createReservation from the reservations controller
@@ -13,5 +14,6 @@ router.get('/:id', getReservation);
 router.put('/:id', updateReservation);
 // Define the road DELETE '/:id', that call the function deleteReservation from the reservations controller
 router.delete('/:id', deleteReservation);
+
 
 export default router;
