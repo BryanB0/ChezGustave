@@ -48,7 +48,7 @@ export async function createLogement (req: Request, res: Response){
         const equipement = await Equipements.findOne(equipementId);
         // If equipement is not null we push his name in the table equipements
         if (equipement) {
-            logement.equipements.push(equipement.name);
+            logement.equipements.push(equipement);
         } else {
             // Else we return an error
             console.error(`Equipement with ID ${equipementId} not found`);
