@@ -42,6 +42,7 @@ export async function createLogement (req: Request, res: Response){
     logement.categorie = categorie;
     logement.type = type;
 
+
     // We go in the table equipements where we get the id of each equipement and we stock in equipementId
     for (const equipementId of equipements.id) {
         // We search the equipement with the id
@@ -53,6 +54,7 @@ export async function createLogement (req: Request, res: Response){
             // Else we return an error
             console.error(`Equipement with ID ${equipementId} not found`);
         }
+
     }
     // Save a logement
     await logement.save();
@@ -131,5 +133,5 @@ export async function deleteLogement (req: Request, res: Response){
     await logement.remove();
     // Return the status 200 Ok that confirms the deleting of the logement
     res.sendStatus(200);
-}
 
+}
