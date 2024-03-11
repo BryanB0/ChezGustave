@@ -138,16 +138,13 @@ export async function deleteReservation (req: Request, res: Response){
 export async function getRatingsFromReservation (req: Request, res: Response){
     // Get a reservatio,n by his id
     const reservation = await Reservations.findOne({
-        where: { id: Number(req.params.id) }
+        where: { id: Number(req.params.id) },
+        relations: { rating: true }
     });
     // If the reservation doesn't exist return the status 404 Not found
     if (!reservation) {
         return res.status(404).send("Not found.");
     }
-    // Get the ratings from reservation
-    const ratings = await Ratings.find({
-        where: { reservation: reservation }
-    });
     // send reservations in anwer
-    res.send(ratings);
+    res.send(reservation.rating);
 }
