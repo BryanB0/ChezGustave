@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { getLogements, createLogement, getLogement, updateLogement, deleteLogement } from "../controllers/LogementsController";
+import { getLogements, createLogement, getLogement, updateLogement, deleteLogement, getReservationsFromLogement } from "../controllers/LogementsController";
 
 
 const router = Router();
@@ -14,5 +14,7 @@ router.get('/:id', getLogement);
 router.put('/:id', updateLogement);
 // Define the road DELETE '/:id', that call the function deleteLogement from the logements controller
 router.delete('/:id', deleteLogement);
+// Define the road GET '/:id/reservations', that call the function getReservationsFromLogement from the logements controller
+router.get('/:id/reservations', getReservationsFromLogement);
 
 export default router;

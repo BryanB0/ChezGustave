@@ -1,6 +1,7 @@
 import { Request, Response } from 'express';
 import Logements from "../entities/Logements";
 import Equipements from '../entities/Equipements';
+import Reservations from '../entities/Reservations';
 
 // Creation of the function getLogements that get all the logements
 export async function getLogements (req: Request, res: Response){
@@ -134,4 +135,22 @@ export async function deleteLogement (req: Request, res: Response){
     // Return the status 200 Ok that confirms the deleting of the logement
     res.sendStatus(200);
 
+}
+
+// Creation of the function GetReservationsFromLogement that get the details of Reservations for a specefic logement
+export async function getReservationsFromLogement (req: Request, res: Response){
+    // Get a logement by his id
+    const logement = await Logements.findOne({
+        where: { id: Number(req.params.id) }
+    });
+    // If the logement doesn't exist return the status 404 Not found
+    if (!logement) {
+        return res.status(404).send("Not found.");
+    }
+    // Get the resevations from logement
+    const reservations = await Reservations.find({
+        where: { logement: logement }
+    });
+    // send reservations in anwer
+    res.send(reservations);
 }
