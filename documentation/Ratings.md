@@ -14,6 +14,22 @@
 }
 ```
 
+## `GET /ratings/:id` get an rating by id
+
+### body:
+```ts
+{
+   id: number,
+   rated: number,
+   text: string,
+   logement: Logements,
+   reservation: Reservations,
+   user: Users
+}
+```
+### return:
+- `404`: Rating not found
+
 ## `POST /ratings` create an rating
 
 ### body:
@@ -32,22 +48,6 @@
 - `400`: 
    - Error missing something in the body: 'missing "rated" field', 'missing "text" field', 'missing "logement" field' ect. 
    - Error 'Invalid "logement" ID', 'Invalid "reservation" ID', 'Invalid "User" ID'
-
-## `GET /ratings/:id` get an rating by id
-
-### body:
-```ts
-{
-   id: number,
-   rated: number,
-   text: string,
-   logement: Logements,
-   reservation: Reservations,
-   user: Users
-}
-```
-### return:
-- `404`: Rating not found
 
 ## `PUT /ratings/:id` update the details of an rating by id
 
