@@ -14,6 +14,38 @@
 }
 ```
 
+## `GET /users/:id` get an user by id
+
+### body:
+```ts
+{
+   id: number,
+   email: string,
+   name: string,
+   tel: string,
+   password: string,
+   is_admin: boolean
+}
+```
+### return:
+- `404`: User not found
+
+## `GET /users/:id/reservations` get the details of the reservations of an user by id
+
+### body:
+```ts
+{
+   id: number,
+   email: string,
+   name: string,
+   tel: string,
+   password: string,
+   is_admin: boolean
+}
+```
+### return:
+- `404`: User not found
+
 ## `POST /users` create an user
 
 ### body:
@@ -31,22 +63,6 @@
 ### return:
 - `201`: User created
 - `400`: Error missing something in the body: 'missing "email" field', 'missing "name" field', 'missing "tel" field' ect. 
-
-## `GET /users/:id` get an user by id
-
-### body:
-```ts
-{
-   id: number,
-   email: string,
-   name: string,
-   tel: string,
-   password: string,
-   is_admin: boolean
-}
-```
-### return:
-- `404`: User not found
 
 ## `PUT /users/:id` update the details of an user by id
 

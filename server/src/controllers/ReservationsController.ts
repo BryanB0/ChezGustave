@@ -136,7 +136,7 @@ export async function deleteReservation (req: Request, res: Response){
 
 // Creation of the function GetRatingsFromReservation that get Ratings for a specefic reservation
 export async function getRatingsFromReservation (req: Request, res: Response){
-    // Get a reservatio,n by his id
+    // Get a reservation by his id
     const reservation = await Reservations.findOne({
         where: { id: Number(req.params.id) },
         relations: { rating: true }

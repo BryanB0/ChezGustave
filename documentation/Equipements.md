@@ -10,6 +10,18 @@
 }
 ```
 
+## `GET /equipements/:id` get an equipement by id
+
+### body:
+```ts
+{
+   id: number,
+   name: string
+}
+```
+### return:
+- `404`: Equipement not found
+
 ## `POST /equipements` create an equipement
 
 ### body:
@@ -22,18 +34,6 @@
 ### return:
 - `201`: Equipement created
 - `400`: Error missing something in the body: 'missing "name" field'. 
-
-## `GET /equipements/:id` get an equipement by id
-
-### body:
-```ts
-{
-   id: number,
-   name: string
-}
-```
-### return:
-- `404`: Equipement not found
 
 ## `PUT /equipements/:id` update the details of an equipement by id
 

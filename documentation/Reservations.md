@@ -16,6 +16,42 @@
 }
 ```
 
+## `GET /reservations/:id` get an reservation by id
+
+### body:
+```ts
+{
+   id: number,
+   start_date: Date,
+   end_date: Date,
+   chef_cuisine: boolean,
+   visite: Date,
+   logement: Logements,
+   user: Users,
+   rating: Ratings
+}
+```
+### return:
+- `404`: Reservation not found
+
+## `GET /reservations/:id/ratings` get the ratings of an reservation by id
+
+### body:
+```ts
+{
+   id: number,
+   start_date: Date,
+   end_date: Date,
+   chef_cuisine: boolean,
+   visite: Date,
+   logement: Logements,
+   user: Users,
+   rating: Ratings
+}
+```
+### return:
+- `404`: Reservation not found
+
 ## `POST /reservations` create an reservation
 
 ### body:
@@ -37,24 +73,6 @@
    - Error missing something in the body: 'missing "start_date" field', 'missing "end_date" field', 'missing "chef_cuisine" field' ect.
    - Error 'Invalid "User" ID', 'Invalid "logement" ID'.
    - Error 'Dates do not match !'.
-
-## `GET /reservations/:id` get an reservation by id
-
-### body:
-```ts
-{
-   id: number,
-   start_date: Date,
-   end_date: Date,
-   chef_cuisine: boolean,
-   visite: Date,
-   logement: Logements,
-   user: Users,
-   rating: Ratings
-}
-```
-### return:
-- `404`: Reservation not found
 
 ## `PUT /reservations/:id` update the details of an reservation by id
 
