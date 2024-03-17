@@ -1,0 +1,110 @@
+
+
+.searchFormSection {
+    display: flex;
+    justify-content: center;
+}
+#searchForm {
+    background-color: #F2F2F2;
+    border-radius: 10px;
+    width: 70vw;
+    padding: 22px 10px 15px 10px;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+    left: 20vw;
+    column-gap: 40px;
+    row-gap: 10px;
+    font-size: 12px;
+    margin-bottom: 40px;
+}
+
+#searchForm input {
+    border-radius: 5px;
+    background-color: #a6a6a6b0;
+    border: none;
+    font-size: 14px;
+    padding: 4px;
+}
+
+#searchForm input[type="number"]::-webkit-outer-spin-button,
+#searchForm input[type="number"]::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+#searchForm input[type="number"] {
+    -moz-appearance: textfield;
+}
+
+.champs {
+    display: flex;
+    flex-direction: column;
+    row-gap: 5px;
+}
+
+.champs label {
+    font-weight: 500;
+    font-size: 15px;
+}
+.secteur {
+    min-width: 200px;
+}
+
+.chambre {
+    max-width: 10%;
+    min-width: 60px;
+}
+
+.type {
+    max-width: 240px;
+}
+.type li {
+    list-style: none;
+}
+.type ul {
+    display: flex;
+    gap: 15px 18px;
+    flex-wrap: wrap;
+    margin: 0;
+    padding: 0;
+}
+
+.type li label {
+    font-size: 15px;
+    padding: 5px;
+    border-radius: 5px;
+    background-color: #B794501f;
+}
+
+.type li label:hover {
+    cursor: pointer;
+}
+
+
+input[type='checkbox'] {
+    display: none;
+}
+
+.type input[type='checkbox']:checked +label {
+    background-color: #b79450d9 ;
+}
+.submitBtn {
+    border: none;
+    background-color: #B79450;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 6px 25px;
+    height: 28px;
+    align-self: center;
+}
+
+.submitBtn:hover {
+    background-color: rgb(183 148 80 / 80%);
+    cursor: pointer;
+}
+
+.submitBtn:active {
+    transform: scale(0.98);
+}
