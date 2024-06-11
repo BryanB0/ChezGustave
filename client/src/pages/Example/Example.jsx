@@ -18,5 +18,5 @@ export default function Example() {
             <h1 className={ styles['title'] }>Chez Gustave</h1>
             <ExampleComponent />
         </div>
-    );
+    );0
 }
