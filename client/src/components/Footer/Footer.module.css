@@ -1,0 +1,50 @@
+:root{
+    font-family: Raleway, sans-serif;
+    --Green: #155B55;
+    --Gold: #E3CF97;
+    --Brown: #B79450;
+    background-color: #ffff; 
+    --Grey: rgb(166, 166, 166);
+}
+
+body{
+    margin: 0px 0px;
+}
+
+.footer{
+    position: sticky;
+    width: 100%;
+    height: 100px;
+    display:flex;
+
+    background-color: var(--Green);
+
+    #propriety{
+
+    padding: 50px;
+    margin-left: 50px;
+
+    text-decoration: none;
+    color: var(--Gold);
+}
+}
+
+.logo{
+    margin: 0px 10px 0px 100px;
+    
+}
+
+.legalLink{ 
+    display: flex;
+    align-items: center;
+    gap: 30px;
+    margin-left: 50px;
+    padding-top: 15px;
+
+    a{
+    text-decoration: none;
+    color: var(--Gold);
+    }
+}
+
+

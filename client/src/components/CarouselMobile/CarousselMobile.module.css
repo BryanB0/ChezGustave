@@ -1,0 +1,78 @@
+.container{
+  margin: 15vh;
+}
+
+.texte{
+  padding: 5vh;
+  text-align: center;
+  font-size: 2em;
+
+  .p1{
+    font-weight: 700;
+  }
+}
+
+.carousel{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+
+  .slideActive{
+    width: 70vh;
+  }
+
+  .btnArrowR{
+    background-color: #e3cf97b7;
+    border-radius: 5em;
+    position: absolute;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    right: 0;
+    transform: translateX(65%);
+  }
+
+  .btnArrowL{
+    background-color: #e3cf97b7;
+    border-radius: 5em;
+    position: absolute;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 2;
+    left: 0;
+    transform: translateX(-65%);
+  }
+  
+  .arrowL{
+    display: flex;
+    justify-content: center;
+    width: 5vh;
+    margin: 1vh;
+  }
+  .arrowR{
+    display: flex;
+    justify-content: center;
+    width: 5vh;
+    margin: 1vh;
+  }
+
+  .caption{
+    display: flex;
+    justify-content: center;
+    padding: 2vh;
+    margin-top: 0;
+
+    text-decoration: none;
+    
+    background-color: var(--Gold);
+    color: #ffff;
+    font-size: 1.6rem;
+  }
+
+}
+
+  

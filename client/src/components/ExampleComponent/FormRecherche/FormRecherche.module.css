@@ -1,0 +1,80 @@
+:root{
+    font-family: Raleway, sans-serif;
+    --Green: #155B55;
+    --Gold: #E3CF97;
+    --Brown: #B79450;
+    --White: #ffff; 
+    --Grey: rgb(166, 166, 166);
+}
+
+
+#form{
+    background-image: url('./../../../../public/fondForm.png');
+    background-size: cover;
+    background-position: center;
+    
+    height: 600px;
+}
+
+.label{
+    display: flex;
+    justify-content: center;
+
+    position: absolute;
+    top: 50%;
+    left: 5%;
+    backdrop-filter: blur(5px); /* Ajustez la valeur du flou selon vos préférences */
+    background-color: #ffffffc5;
+
+    padding: 40px;
+    margin-left: 10em;
+    margin-right: 10em;
+    border-radius: 10px;
+
+    z-index: 1;
+    
+
+}
+
+.label div{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-right: 40px;
+
+    font-size: 1rem;
+    gap: 10px;
+
+}
+
+.label input{
+    background-color: rgba(166, 166, 166 ) ;
+    border-radius: 5px;
+    border-color: transparent;
+    height: 30px;
+}
+
+.label button{
+    background-color: var(--Gold);
+    
+    border-color: transparent;
+    border-radius: 5px;
+    height: 40px;
+    margin-top: 27px;
+    margin-left: 10px;
+    padding: 0px 25px 0px 25px;
+
+    font-size: 1.2rem;
+    color: var(--White) ;
+}
+
+@media (max-width: 700px){
+
+    .label{
+        display: none;
+    }
+
+    #form{
+        height: 60vh;
+    }
+}
